@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spare parts — Fixora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="eyebrow">Spare parts store</div>
+      <h1 style="font-size:2.2rem">Genuine parts, honest prices</h1>
+      <p>Every part shows the Fixora price next to what a local shop typically charges. Delivery in 24 to 48 hours, free above ₹499.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:28px">
+    <div class="wrap">
+      <div class="field" style="max-width:420px">
+        <input class="input" id="search" type="search" placeholder="Search parts, e.g. capacitor, filter, belt" aria-label="Search parts">
+      </div>
+      <div class="pills" id="filters" style="margin-bottom:24px"></div>
+      <div class="grid-4" id="partGrid"></div>
+      <div class="empty" id="noParts" hidden><b>No parts match your search</b><p class="small">Try a different word, or <a class="link" href="diagnose.html">ask an expert</a> which part you need.</p></div>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var filter = getApp(param("appliance")) ? param("appliance") : "all";
+
+  function render() {
+    var term = $("#search").value.trim().toLowerCase();
+    $("#filters").innerHTML = '<button class="pill' + (filter === "all" ? " on" : "") + '" data-f="all">All parts</button>' +
+      APPLIANCES.map(function (a) {
+        return '<button class="pill' + (filter === a.id ? " on" : "") + '" data-f="' + a.id + '">' + icon(a) + a.short + '</button>';
+      }).join("");
+    var list = PARTS.filter(function (p) {
+      var text = (p.name + " " + p.brand + " " + getApp(p.app).name).toLowerCase();
+      return (filter === "all" || p.app === filter) && text.indexOf(term) !== -1;
+    });
+    $("#partGrid").innerHTML = list.map(partCard).join("");
+    $("#noParts").hidden = list.length > 0;
+  }
+
+  $("#filters").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-f]");
+    if (b) { filter = b.getAttribute("data-f"); render(); }
+  });
+  $("#search").addEventListener("input", render);
+  render();
+});
+</script>
+</body>
+</html>

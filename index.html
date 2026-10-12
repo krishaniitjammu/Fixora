@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fixora — Honest appliance repair at transparent prices</title>
+  <meta name="description" content="Pick your appliance, talk to a trained expert, see part and service prices up front, buy spare parts and book a technician.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Appliance repair, without the guesswork</div>
+        <h1>Know the fault and the price before anyone touches your appliance.</h1>
+        <p class="lead">Tell a trained Fixora expert what is wrong. Get a clear diagnosis, an itemised price for parts and service, and a verified technician at your door. It costs less than the local repair shop.</p>
+        <div class="hero-cta">
+          <a class="btn" href="diagnose.html">Describe your problem</a>
+          <a class="btn ghost" href="services.html">See repair prices</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>10</b><span>appliance types covered</span></div>
+          <div><b>25–35%</b><span>lower than local shops</span></div>
+          <div><b>90 days</b><span>service warranty</span></div>
+        </div>
+      </div>
+
+      <div class="estimate" id="heroEstimate"></div>
+    </div>
+  </section>
+
+  <section class="section" id="appliances">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>What needs fixing?</h2>
+          <p>Pick an appliance to see common faults and what each repair costs.</p>
+        </div>
+        <a class="link" href="services.html">All repairs and prices →</a>
+      </div>
+      <div class="app-grid" id="appGrid"></div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>How Fixora works</h2>
+          <p>Four steps from "it stopped working" to "it works again".</p>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Pick your appliance</h3><p>Choose from ACs, fridges, washing machines, RO purifiers and more.</p></div>
+        <div class="step"><h3>Talk to an expert</h3><p>Describe the problem in your own words. A trained expert tells you the likely fault.</p></div>
+        <div class="step"><h3>See the full price</h3><p>Every part and the service charge are listed separately, next to what local shops charge.</p></div>
+        <div class="step"><h3>Fix it your way</h3><p>Order the spare part and fit it yourself, or book a technician for a time slot that suits you.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Prices you can check before you book</h2>
+          <p>Sample repairs with parts and labour included, compared with a typical local-shop quote.</p>
+        </div>
+        <a class="link" href="services.html">Full rate card →</a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Repair</th><th>Part used</th><th class="num">Local shop</th><th class="num">Fixora</th><th class="num">You save</th></tr></thead>
+          <tbody id="compareRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>Popular spare parts</h2>
+          <p>Genuine parts delivered in 24 to 48 hours. Fit them yourself or add a technician visit.</p>
+        </div>
+        <a class="link" href="parts.html">Shop all parts →</a>
+      </div>
+      <div class="grid-4" id="popularParts"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><div><h2>Why people choose Fixora</h2></div></div>
+      <div class="grid-3">
+        <div class="card"><h3>Diagnosis before the visit</h3><p>You speak to a trained expert first, so the technician arrives knowing the fault and carrying the right part.</p></div>
+        <div class="card"><h3>No surprise bills</h3><p>The price you see is the price you pay. Parts and labour are listed line by line.</p></div>
+        <div class="card"><h3>Cheaper than the local shop</h3><p>We buy parts in bulk direct from distributors and charge a fixed labour rate.</p></div>
+        <div class="card"><h3>Verified technicians</h3><p>Every technician is background-checked and trained on the appliance they repair.</p></div>
+        <div class="card"><h3>Warranty on every repair</h3><p>90 days on service and up to 12 months on parts. If the fault returns, we come back free.</p></div>
+        <div class="card"><h3>Pay after the job</h3><p>Pay by UPI, card or cash only after your appliance is working again.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <div class="section-head"><div><h2>What customers say</h2><p>Sample reviews for the prototype.</p></div></div>
+      <div class="grid-3">
+        <div class="card"><div class="stars">★★★★★</div><p class="quote">"The local shop quoted ₹3,500 for my AC. Fixora showed me it was only a capacitor and fixed it for under ₹700."</p><div class="quote-by">Ananya G., Gandhi Nagar</div></div>
+        <div class="card"><div class="stars">★★★★★</div><p class="quote">"I liked talking to the expert first. He explained the fault in plain words and the bill matched the estimate exactly."</p><div class="quote-by">Vikram S., Trikuta Nagar</div></div>
+        <div class="card"><div class="stars">★★★★☆</div><p class="quote">"Ordered the RO filter kit and changed it myself using their guide. Saved the visit charge completely."</p><div class="quote-by">Meenakshi R., Channi Himmat</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" style="max-width:820px">
+      <div class="section-head"><div><h2>Questions</h2></div></div>
+      <details open><summary>How can you diagnose without seeing the appliance?</summary><p>Most appliance faults show clear symptoms. Our experts ask a few targeted questions and narrow it down to the likely cause. The technician confirms it on site before any work starts, and you approve the final price.</p></details>
+      <details><summary>What if the fault turns out to be something else?</summary><p>You get a revised itemised quote on the spot. If you decide not to go ahead, you pay only the ₹149 inspection fee.</p></details>
+      <details><summary>Why is Fixora cheaper than a local shop?</summary><p>We source parts in bulk directly from distributors and charge a fixed, published labour rate for each repair, so there is no room for a mark-up on the day.</p></details>
+      <details><summary>Can I buy only the spare part?</summary><p>Yes. Every part is sold separately with delivery in 24 to 48 hours. You can add a technician visit later if you need help fitting it.</p></details>
+      <details><summary>Is there a warranty?</summary><p>Every repair carries a 90-day service warranty, and parts carry their own warranty of up to 12 months.</p></details>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="band">
+        <div><h2>Something not working at home?</h2><p>Tell us what is wrong and get a diagnosis with a price in minutes.</p></div>
+        <a class="btn" href="diagnose.html">Ask an expert</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  $("#appGrid").innerHTML = APPLIANCES.map(function (a) {
+    var from = Math.min.apply(null, a.issues.map(function (i) { return quote(i).total; }));
+    return '<a class="app-card" href="services.html?appliance=' + a.id + '"><span class="ico">' + icon(a) + '</span><b>' + a.name + '</b><span>Repairs from ' + inr(from) + '</span></a>';
+  }).join("");
+
+  // Hero: one worked example of a transparent estimate.
+  var ac = getApp("ac"), issue = getIssue(ac, "ac-start"), q = quote(issue);
+  $("#heroEstimate").innerHTML =
+    '<div class="estimate-top"><span class="ico">' + icon(ac) + '</span><div><b>' + ac.name + '</b><div class="small muted">"' + issue.title + '"</div></div><span class="tag" style="margin-left:auto">Sample estimate</span></div>' +
+    '<p class="small muted" style="margin:14px 0 6px"><b style="color:var(--ink)">Expert diagnosis:</b> ' + issue.cause + '</p>' +
+    '<ul class="rows">' + q.parts.map(function (p) { return '<li><span>' + p.name + '</span><span>' + inr(p.price) + '</span></li>'; }).join("") +
+    '<li><span>Service and fitting</span><span>' + inr(issue.labour) + '</span></li>' +
+    '<li class="total"><span>Fixora price</span><span>' + inr(q.total) + '</span></li>' +
+    '<li class="local"><span>Typical local shop</span><span>' + inr(q.local) + '</span></li></ul>' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap"><span class="save-pill">You save ' + inr(q.save) + '</span>' +
+    '<a class="btn sm green" href="book.html?appliance=ac&issue=ac-start">Book this repair</a></div>';
+
+  var picks = [["ac", "ac-cooling"], ["fridge", "fr-cooling"], ["wm", "wm-drain"], ["ro", "ro-flow"], ["gy", "gy-heat"], ["tv", "tv-dark"]];
+  $("#compareRows").innerHTML = picks.map(function (pk) {
+    var a = getApp(pk[0]), i = getIssue(a, pk[1]), q = quote(i);
+    return '<tr><td><b>' + a.name + '</b><div class="small muted">' + i.title + '</div></td><td>' + q.parts.map(function (p) { return p.name; }).join(", ") + '</td>' +
+      '<td class="num muted"><s>' + inr(q.local) + '</s></td><td class="num"><b>' + inr(q.total) + '</b></td><td class="num"><span class="save-pill">' + inr(q.save) + '</span></td></tr>';
+  }).join("");
+
+  var popular = ["ac-cap", "ro-filterkit", "wm-belt", "gy-element"];
+  $("#popularParts").innerHTML = popular.map(function (id) { return partCard(getPart(id)); }).join("");
+});
+</script>
+</body>
+</html>

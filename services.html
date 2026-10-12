@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repairs and prices — Fixora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="eyebrow">Rate card</div>
+      <h1 style="font-size:2.2rem">Repairs and prices</h1>
+      <p>Choose your appliance to see common faults, the part each one needs, and the full price next to a typical local-shop quote.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:28px">
+    <div class="wrap">
+      <div class="pills" id="appPills" style="margin-bottom:26px"></div>
+      <div id="issueList"></div>
+      <div class="notice" style="margin-top:8px">Not sure which fault you have? <a class="link" href="diagnose.html" id="diagLink">Describe it to an expert</a> and get a diagnosis first. If the technician finds a different fault, you get a revised quote before any work starts. The ₹149 inspection fee is waived when you go ahead with the repair.</div>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var current = getApp(param("appliance")) || APPLIANCES[0];
+
+  function render() {
+    $("#appPills").innerHTML = APPLIANCES.map(function (a) {
+      return '<button class="pill' + (a.id === current.id ? " on" : "") + '" data-app="' + a.id + '">' + icon(a) + a.name + '</button>';
+    }).join("");
+    $("#diagLink").href = "diagnose.html?appliance=" + current.id;
+    $("#issueList").innerHTML = current.issues.map(function (i) {
+      var q = quote(i);
+      return '<article class="issue"><div>' +
+        '<h3>' + i.title + '</h3><p class="cause">' + i.cause + '</p>' +
+        '<span class="tag">About ' + i.mins + ' min</span> <span class="tag">90-day warranty</span>' +
+        '<div class="actions"><a class="btn sm" href="book.html?appliance=' + current.id + '&issue=' + i.id + '">Book this repair</a>' +
+        q.parts.map(function (p) { return '<button class="btn sm ghost" data-add="' + p.id + '">Buy part only · ' + inr(p.price) + '</button>'; }).join("") + '</div></div>' +
+        '<div class="breakdown"><ul class="rows">' +
+        q.parts.map(function (p) { return '<li><span>' + p.name + '</span><span>' + inr(p.price) + '</span></li>'; }).join("") +
+        '<li><span>Service and fitting</span><span>' + (i.labour ? inr(i.labour) : "Free") + '</span></li>' +
+        '<li class="total"><span>Fixora price</span><span>' + inr(q.total) + '</span></li>' +
+        '<li class="local"><span>Typical local shop</span><span>' + inr(q.local) + '</span></li></ul>' +
+        '<span class="save-pill">You save ' + inr(q.save) + '</span></div></article>';
+    }).join("");
+  }
+
+  $("#appPills").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-app]");
+    if (!b) return;
+    current = getApp(b.getAttribute("data-app"));
+    history.replaceState(null, "", "?appliance=" + current.id);
+    render();
+  });
+  render();
+});
+</script>
+</body>
+</html>

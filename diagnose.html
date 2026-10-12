@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask an expert — Fixora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="eyebrow">Free diagnosis</div>
+      <h1 style="font-size:2.2rem">Tell an expert what is wrong</h1>
+      <p>Describe the problem in your own words. You get the likely fault and an itemised price straight away, and a trained expert calls to confirm it.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:28px">
+    <div class="wrap split">
+      <form id="diagForm" novalidate>
+        <div class="form-block">
+          <h3><i>1</i>Which appliance?</h3>
+          <div class="pills" id="appPills"></div>
+        </div>
+
+        <div class="form-block">
+          <h3><i>2</i>What is it doing?</h3>
+          <div class="field">
+            <label>Pick the closest symptom</label>
+            <div class="pills" id="symptoms"></div>
+          </div>
+          <div class="field">
+            <label for="desc">Describe it in your own words</label>
+            <textarea class="input" id="desc" placeholder="e.g. The outdoor unit makes a humming sound but the AC does not cool. Started two days ago."></textarea>
+          </div>
+          <div class="row-2">
+            <div class="field"><label for="brand">Brand (optional)</label><input class="input" id="brand" placeholder="e.g. LG, Samsung, Voltas"></div>
+            <div class="field"><label for="age">Age of appliance</label>
+              <select class="input" id="age"><option>Less than 2 years</option><option>2 to 5 years</option><option>5 to 8 years</option><option>More than 8 years</option></select>
+            </div>
+          </div>
+          <button class="btn" type="submit">Get my diagnosis</button>
+          <p class="small muted" id="formError" style="margin-top:10px;color:var(--danger)" hidden>Pick a symptom or describe the problem so the expert has something to go on.</p>
+        </div>
+
+        <div id="result"></div>
+      </form>
+
+      <aside class="sticky">
+        <div class="card">
+          <h3 style="margin-bottom:14px">Your expert</h3>
+          <div class="expert" id="expertCard"></div>
+          <p style="margin-top:14px">Fixora experts are senior technicians trained to diagnose faults over a call, so the technician arrives with the right part.</p>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <h3>What you get</h3>
+          <ul class="rows" style="margin-top:8px">
+            <li><span>Likely fault, in plain words</span><span>✓</span></li>
+            <li><span>Itemised parts and service price</span><span>✓</span></li>
+            <li><span>Comparison with local shops</span><span>✓</span></li>
+            <li><span>Cost of the diagnosis</span><span><b>Free</b></span></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var app = getApp(param("appliance")) || APPLIANCES[0];
+  var picked = null;
+
+  function expertFor(a) {
+    if (a.id === "ac" || a.id === "fridge") return EXPERTS[0];
+    if (a.id === "wm" || a.id === "ro" || a.id === "gy") return EXPERTS[1];
+    return EXPERTS[2];
+  }
+
+  function renderInputs() {
+    $("#appPills").innerHTML = APPLIANCES.map(function (a) {
+      return '<button type="button" class="pill' + (a.id === app.id ? " on" : "") + '" data-app="' + a.id + '">' + icon(a) + a.short + '</button>';
+    }).join("");
+    $("#symptoms").innerHTML = app.issues.map(function (i) {
+      return '<button type="button" class="pill' + (picked === i.id ? " on" : "") + '" data-issue="' + i.id + '">' + i.title + '</button>';
+    }).join("") + '<button type="button" class="pill' + (picked === "other" ? " on" : "") + '" data-issue="other">Something else</button>';
+    var ex = expertFor(app);
+    $("#expertCard").innerHTML = '<span class="avatar">' + ex.name.split(" ").map(function (w) { return w[0]; }).join("") + '</span><div><b>' + ex.name + '</b><div class="small muted">' + ex.role + '</div><div class="small muted">' + ex.years + ' years of experience</div></div>';
+  }
+
+  // Match the description against each fault's keywords; a picked symptom wins.
+  function match(text) {
+    var direct = getIssue(app, picked);
+    if (direct) return direct;
+    var best = null, bestScore = 0;
+    app.issues.forEach(function (i) {
+      var score = i.kw.filter(function (k) { return text.indexOf(k) !== -1; }).length;
+      if (score > bestScore) { best = i; bestScore = score; }
+    });
+    return best;
+  }
+
+  function showResult() {
+    var text = $("#desc").value.toLowerCase();
+    var missing = !picked && text.trim().length < 4;
+    $("#formError").hidden = !missing;
+    if (missing) return;
+
+    var issue = match(text), ex = expertFor(app), html;
+    if (issue) {
+      var q = quote(issue);
+      var old = $("#age").selectedIndex === 3
+        ? '<div class="notice" style="margin-top:14px">This appliance is over 8 years old. The expert will also tell you honestly whether repair or replacement makes more sense.</div>' : "";
+      html = '<div class="form-block"><h3><i>3</i>Preliminary diagnosis</h3>' +
+        '<div class="estimate" style="box-shadow:none">' +
+        '<div class="estimate-top"><span class="ico">' + icon(app) + '</span><div><b>' + issue.title + '</b><div class="small muted">' + app.name + ($("#brand").value ? " · " + esc($("#brand").value) : "") + '</div></div><span class="tag" style="margin-left:auto">Likely fault</span></div>' +
+        '<p style="margin:14px 0 8px">' + issue.cause + '</p>' +
+        '<ul class="rows">' + q.parts.map(function (p) { return '<li><span>' + p.name + '</span><span>' + inr(p.price) + '</span></li>'; }).join("") +
+        '<li><span>Service and fitting (about ' + issue.mins + ' min)</span><span>' + (issue.labour ? inr(issue.labour) : "Free") + '</span></li>' +
+        '<li class="total"><span>Estimated Fixora price</span><span>' + inr(q.total) + '</span></li>' +
+        '<li class="local"><span>Typical local shop</span><span>' + inr(q.local) + '</span></li></ul>' +
+        '<span class="save-pill">You save about ' + inr(q.save) + '</span></div>' + old +
+        '<div class="hero-cta" style="margin-top:18px"><a class="btn green" href="book.html?appliance=' + app.id + '&issue=' + issue.id + '">Book a technician</a>' +
+        q.parts.map(function (p) { return '<button type="button" class="btn ghost" data-add="' + p.id + '">Buy ' + p.name + '</button>'; }).join("") + '</div></div>';
+    } else {
+      html = '<div class="form-block"><h3><i>3</i>This one needs a closer look</h3><p class="muted">Your description does not match a common fault for this appliance, so an expert should talk to you before quoting a price. You can also book an inspection visit for ' + inr(VISIT_FEE) + ', waived if you go ahead with the repair.</p>' +
+        '<div class="hero-cta" style="margin-top:16px"><a class="btn green" href="book.html?appliance=' + app.id + '">Book an inspection</a></div></div>';
+    }
+    html += '<div class="form-block" id="callback"><h3><i>4</i>Get a call from ' + ex.name.split(" ")[0] + '</h3>' +
+      '<p class="muted" style="margin-bottom:16px">Your expert confirms the diagnosis and answers your questions, usually within 15 minutes between 8 AM and 9 PM.</p>' +
+      '<div class="row-2"><div class="field"><label for="cbName">Your name</label><input class="input" id="cbName" autocomplete="name"></div>' +
+      '<div class="field"><label for="cbPhone">Mobile number</label><input class="input" id="cbPhone" inputmode="numeric" maxlength="10" placeholder="10-digit number" autocomplete="tel"></div></div>' +
+      '<button type="button" class="btn" id="cbBtn">Request a callback</button>' +
+      '<p class="small muted" style="margin-top:10px">Prototype: the request is only saved in this browser.</p></div>';
+    $("#result").innerHTML = html;
+    $("#result").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  $("#appPills").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-app]");
+    if (!b) return;
+    app = getApp(b.getAttribute("data-app")); picked = null;
+    $("#result").innerHTML = "";
+    renderInputs();
+  });
+  $("#symptoms").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-issue]");
+    if (!b) return;
+    picked = picked === b.getAttribute("data-issue") ? null : b.getAttribute("data-issue");
+    renderInputs();
+  });
+  $("#diagForm").addEventListener("submit", function (e) { e.preventDefault(); showResult(); });
+  $("#result").addEventListener("click", function (e) {
+    if (e.target.id !== "cbBtn") return;
+    var name = $("#cbName").value.trim(), phone = $("#cbPhone").value.trim();
+    if (!name || !/^\d{10}$/.test(phone)) { toast("Enter your name and a 10-digit mobile number"); return; }
+    var list = store("fixora_callbacks") || [];
+    list.push({ name: name, phone: phone, appliance: app.id, at: new Date().toISOString() });
+    store("fixora_callbacks", list);
+    $("#callback").innerHTML = '<div class="success"><h3>Callback requested</h3><p>Thanks, ' + esc(name) + '. ' + expertFor(app).name + ' will call you on the number ending ' + phone.slice(-4) + ' shortly.</p></div>';
+  });
+  renderInputs();
+});
+</script>
+</body>
+</html>
