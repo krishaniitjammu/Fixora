@@ -160,6 +160,13 @@ function renderLayout() {
   if (location.hash === "#cart") openCart(true);
 }
 
+// Photo of an appliance (see js/photos.js), falling back to its icon.
+function appPhoto(a, cls) {
+  var ph = typeof APPLIANCE_PHOTOS !== "undefined" && APPLIANCE_PHOTOS[a.id];
+  if (ph) return '<span class="' + cls + '"><img src="assets/appliances/' + ph.file + '" alt="' + a.name + '" loading="lazy"></span>';
+  return '<span class="ico">' + icon(a) + '</span>';
+}
+
 // Photo of a part (see js/photos.js), falling back to the appliance icon.
 function partThumb(p, cls) {
   var ph = typeof PART_PHOTOS !== "undefined" && PART_PHOTOS[p.id];

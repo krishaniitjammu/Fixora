@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
@@ -23,15 +23,16 @@
   <section class="section" style="padding-top:28px">
     <div class="wrap">
       <div class="pills" id="appPills" style="margin-bottom:26px"></div>
+      <div class="app-banner" id="appBanner"></div>
       <div id="issueList"></div>
       <div class="notice" style="margin-top:8px">Not sure which fault you have? <a class="link" href="diagnose.html" id="diagLink">Describe it to an expert</a> and get a diagnosis first. If the technician finds a different fault, you get a revised quote before any work starts. The ₹149 inspection fee is waived when you go ahead with the repair.</div>
     </div>
   </section>
 </main>
 
-<script src="js/data.js"></script>
-<script src="js/photos.js"></script>
-<script src="js/app.js"></script>
+<script src="js/data.js?v=3"></script>
+<script src="js/photos.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   var current = getApp(param("appliance")) || APPLIANCES[0];
@@ -41,6 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return '<button class="pill' + (a.id === current.id ? " on" : "") + '" data-app="' + a.id + '">' + icon(a) + a.name + '</button>';
     }).join("");
     $("#diagLink").href = "diagnose.html?appliance=" + current.id;
+    $("#appBanner").innerHTML = appPhoto(current, "app-banner-photo") +
+      '<div><h2>' + current.name + ' repair</h2><p class="muted">' + current.issues.length + ' common faults, each with a fixed price for parts and service.</p></div>';
     $("#issueList").innerHTML = current.issues.map(function (i) {
       var q = quote(i);
       return '<article class="issue"><div>' +

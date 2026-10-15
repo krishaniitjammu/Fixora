@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 
@@ -131,14 +131,14 @@
   </section>
 </main>
 
-<script src="js/data.js"></script>
-<script src="js/photos.js"></script>
-<script src="js/app.js"></script>
+<script src="js/data.js?v=3"></script>
+<script src="js/photos.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   $("#appGrid").innerHTML = APPLIANCES.map(function (a) {
     var from = Math.min.apply(null, a.issues.map(function (i) { return quote(i).total; }));
-    return '<a class="app-card" href="services.html?appliance=' + a.id + '"><span class="ico">' + icon(a) + '</span><b>' + a.name + '</b><span>Repairs from ' + inr(from) + '</span></a>';
+    return '<a class="app-card" href="services.html?appliance=' + a.id + '">' + appPhoto(a, "app-photo") + '<b>' + a.name + '</b><span>Repairs from ' + inr(from) + '</span></a>';
   }).join("");
 
   // Hero: one worked example of a transparent estimate.

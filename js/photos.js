@@ -184,3 +184,76 @@ var PART_PHOTOS = {
     "page": "https://commons.wikimedia.org/wiki/File:Commutator_brushes_compare_used_and_new.jpg"
   }
 };
+
+var APPLIANCE_PHOTOS = {
+  "ac": {
+    "file": "ac.jpg",
+    "title": "Panasonic AIR CONDITIONER INDOOR UNIT CS-C10KJ2 (2).jpg",
+    "author": "Dinkun Chen",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Panasonic_AIR_CONDITIONER_INDOOR_UNIT_CS-C10KJ2_(2).jpg"
+  },
+  "fridge": {
+    "file": "fridge.jpg",
+    "title": "Double Function Fridge Door 1.jpg",
+    "author": "Stilfehler",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Double_Function_Fridge_Door_1.jpg"
+  },
+  "wm": {
+    "file": "wm.jpg",
+    "title": "12kg 용량 ‘트롬 세탁기 씽큐’ 출시.jpg",
+    "author": "LGEPR",
+    "license": "CC BY 2.0",
+    "page": "https://commons.wikimedia.org/wiki/File:12kg_%EC%9A%A9%EB%9F%89_%E2%80%98%ED%8A%B8%EB%A1%AC_%EC%84%B8%ED%83%81%EA%B8%B0_%EC%94%BD%ED%81%90%E2%80%99_%EC%B6%9C%EC%8B%9C.jpg"
+  },
+  "mw": {
+    "file": "mw.jpg",
+    "title": "2018-04-20-16-52-10-IMG 7029 (39792860053).jpg",
+    "author": "Eric Fischer",
+    "license": "CC BY 2.0",
+    "page": "https://commons.wikimedia.org/wiki/File:2018-04-20-16-52-10-IMG_7029_(39792860053).jpg"
+  },
+  "ro": {
+    "file": "ro.jpg",
+    "title": "Aquaguard Water Purifier RO Enhanced - Snap 2582.JPG",
+    "author": "Rameshng",
+    "license": "CC BY-SA 3.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Aquaguard_Water_Purifier_RO_Enhanced_-_Snap_2582.JPG"
+  },
+  "gy": {
+    "file": "gy.jpg",
+    "title": "Ariston Water heater.jpg",
+    "author": "BOO109",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Ariston_Water_heater.jpg"
+  },
+  "tv": {
+    "file": "tv.jpg",
+    "title": "Sanyo XT-43S7100F 20160808.jpg",
+    "author": "Sanyo",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Sanyo_XT-43S7100F_20160808.jpg"
+  },
+  "ch": {
+    "file": "ch.jpg",
+    "title": "Cappa d'aspirazione Silverline.jpg",
+    "author": "Air fans",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Cappa_d%27aspirazione_Silverline.jpg"
+  },
+  "fan": {
+    "file": "fan.jpg",
+    "title": "Fan 2024.jpg",
+    "author": "Muthukumaran Esakkiappan",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Fan_2024.jpg"
+  },
+  "mx": {
+    "file": "mx.jpg",
+    "title": "A table-top mixer-grinder or mixie.jpg",
+    "author": "Vimkay",
+    "license": "CC BY-SA 4.0",
+    "page": "https://commons.wikimedia.org/wiki/File:A_table-top_mixer-grinder_or_mixie.jpg"
+  }
+};
