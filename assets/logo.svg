@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 40" role="img" aria-label="Fixora">
+  <g transform="translate(4 4)">
+    <path d="M16 1.5 28.6 8.75v14.5L16 30.5 3.4 23.25V8.75z" fill="#101418" stroke="#101418" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M11.5 9.5h9.5v3.4h-5.6v2.6h4.6v3.3h-4.6v4.7h-3.9z" fill="#fff"/>
+    <circle cx="21" cy="21" r="2" fill="#2bd49a"/>
+  </g>
+  <text x="44" y="28.5" font-family="'Plus Jakarta Sans','Segoe UI',Arial,sans-serif" font-size="25" font-weight="800" letter-spacing="-0.8" fill="#101418">Fixora</text>
+</svg>

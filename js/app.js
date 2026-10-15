@@ -80,7 +80,7 @@ function renderCart() {
   body.innerHTML = ids.map(function (id) {
     var p = getPart(id), q = Cart.items[id];
     total += p.price * q; local += p.local * q;
-    return '<div class="cart-item"><div class="ico">' + icon(getApp(p.app)) + '</div>' +
+    return '<div class="cart-item">' + partThumb(p, "ico cart-thumb") +
       '<div class="info"><b>' + p.name + '</b><span class="small muted">' + inr(p.price) + ' each</span></div>' +
       '<div class="qty"><button data-cart="' + id + '" data-n="-1" aria-label="Decrease">−</button><span>' + q + '</span><button data-cart="' + id + '" data-n="1" aria-label="Increase">+</button></div></div>';
   }).join("");
@@ -95,6 +95,9 @@ function renderCart() {
 }
 
 /* ---------- Layout ---------- */
+// Hex-nut "F" mark; the green dot reads as "fixed". Same artwork as assets/logo.svg.
+var LOGO_MARK = '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1.5 28.6 8.75v14.5L16 30.5 3.4 23.25V8.75z" fill="#101418" stroke="#101418" stroke-width="2" stroke-linejoin="round"/><path d="M11.5 9.5h9.5v3.4h-5.6v2.6h4.6v3.3h-4.6v4.7h-3.9z" fill="#fff"/><circle cx="21" cy="21" r="2" fill="#2bd49a"/></svg>';
+
 var NAV = [
   ["services.html", "Repairs & prices"],
   ["diagnose.html", "Ask an expert"],
@@ -107,7 +110,7 @@ function renderLayout() {
   var header = document.createElement("header");
   header.className = "site-header";
   header.innerHTML = '<div class="wrap">' +
-    '<a class="logo" href="index.html"><span class="logo-mark"><svg class="line" viewBox="0 0 24 24" style="stroke-width:2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4z"/></svg></span>Fixora</a>' +
+    '<a class="logo" href="index.html"><span class="logo-mark">' + LOGO_MARK + '</span>Fixora</a>' +
     '<span class="loc"><svg class="line" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Jammu</span>' +
     '<nav class="nav">' + NAV.map(function (n) {
       return '<a href="' + n[0] + '"' + (page === n[0] ? ' class="active"' : "") + ">" + n[1] + "</a>";
@@ -120,11 +123,11 @@ function renderLayout() {
   var footer = document.createElement("footer");
   footer.className = "site-footer";
   footer.innerHTML = '<div class="wrap"><div class="foot-grid">' +
-    '<div><a class="logo" href="index.html" style="margin-bottom:12px">Fixora</a><p>Honest appliance repair. Talk to a trained expert, see every price up front, and pay less than the local shop.</p></div>' +
+    '<div><a class="logo" href="index.html" style="margin-bottom:12px"><span class="logo-mark">' + LOGO_MARK + '</span>Fixora</a><p>Honest appliance repair. Talk to a trained expert, see every price up front, and pay less than the local shop.</p></div>' +
     '<div><h4>Services</h4>' + NAV.map(function (n) { return '<a href="' + n[0] + '">' + n[1] + "</a>"; }).join("") + "</div>" +
     '<div><h4>Appliances</h4>' + APPLIANCES.slice(0, 5).map(function (a) { return '<a href="services.html?appliance=' + a.id + '">' + a.name + "</a>"; }).join("") + "</div>" +
     '<div><h4>Contact</h4><p>help@fixora.example</p><p>1800-000-0000 (sample)</p><p>8 AM – 9 PM, all days</p></div>' +
-    '</div><div class="foot-bottom">© 2026 Fixora. Student venture prototype. All prices, parts and people shown are sample data.</div></div>';
+    '</div><div class="foot-bottom">© 2026 Fixora. Student venture prototype. All prices, parts and people shown are sample data. <a href="credits.html" style="display:inline">Photo credits</a></div></div>';
   document.body.appendChild(footer);
 
   var extras = document.createElement("div");
@@ -157,9 +160,16 @@ function renderLayout() {
   if (location.hash === "#cart") openCart(true);
 }
 
+// Photo of a part (see js/photos.js), falling back to the appliance icon.
+function partThumb(p, cls) {
+  var ph = typeof PART_PHOTOS !== "undefined" && PART_PHOTOS[p.id];
+  if (ph) return '<div class="' + cls + '"><img src="assets/parts/' + ph.file + '" alt="' + p.name + '" loading="lazy"></div>';
+  return '<div class="' + cls + ' no-photo">' + icon(getApp(p.app)) + '</div>';
+}
+
 function partCard(p) {
   var off = Math.round((1 - p.price / p.local) * 100);
-  return '<article class="part"><div class="part-top"><div class="ico">' + icon(getApp(p.app)) + '</div><span class="save-pill">' + off + '% less</span></div>' +
+  return '<article class="part"><div class="part-media">' + partThumb(p, "part-img") + '<span class="save-pill">' + off + '% less</span></div>' +
     '<div><h3>' + p.name + '</h3><div class="meta">' + p.brand + '</div></div>' +
     '<div class="price"><b>' + inr(p.price) + '</b><s>' + inr(p.local) + '</s><span class="small muted">local shop</span></div>' +
     '<div class="meta">' + (p.warranty ? p.warranty + "-month warranty" : "Genuine part") + ' · Delivery in 24–48 h</div>' +
